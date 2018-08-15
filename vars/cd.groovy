@@ -1,8 +1,8 @@
 #!/usr/bin/groovy
 
-def call(Closure body) {
+def call(body = null) {
+
     if(env.BRANCH_NAME.equals('master')) {
-        echo "from cd ${templateConfig}"
         body()
     }
 }
