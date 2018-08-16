@@ -4,16 +4,16 @@ def call(Map parameters = [:], Closure body) {
 
     def defaultLabel = buildId('nodejs')
     def label = parameters.get('label', defaultLabel)
-    def config = [templateConfig: "nodejsnode"]
+    def config = [templateConfig: "nodeJs"]
 
     node {
-        checkout scm
+        //checkout scm
 
         body.resolveStrategy = Closure.DELEGATE_FIRST
         body.delegate = config
         body()
 
-        echo "nodejsnode config ${config}"
+        echo "nodeJs config ${config}"
     }
 
 }
