@@ -1,17 +1,22 @@
 #!/usr/bin/groovy
 
-def call(Map templateConfig, String yamlFile = ".openshiftio/application.yaml") {
+def call(Map params, String yamlFile = ".openshiftio/application.yaml") {
     if (!fileExists(yamlFile)) {
         println("File not found: ${yamlFile}")
         currentBuild.result = 'FAILURE'
         return
     }
 
-    def templateParams = prepareTemplateParams(templateConfig)
+    def args = [:]
+    params.each{k, v -> args[k.toUpperCase()] = v }
+
+    def templateParams = prepareTemplateParams(args)
     def templateParamString = toParamString(templateParams)
+
     def templateString = shWithOutput("oc process -f .openshiftio/application.yaml ${templateParamString} -o yaml")
+
     def templateResources = parseTemplateResources(templateString)
-    templateResources["tag"] = templateConfig["RELEASE_VERSION"]
+    templateResources["tag"] = params["RELEASE_VERSION"]
 
     return templateResources
 }
