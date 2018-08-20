@@ -1,11 +1,9 @@
 #!/usr/bin/groovy
 
-util
-def call(resources, namespace) {
-    stage("Build application") {
-        def utils = new io.fabric8.Utils()
-        namespace = namespace ?: utils.getUsersNamespace()
+def utils = new io.fabric8.Utils()
 
+def call(resources, namespace=utils.getUsersNamespace()) {
+    stage("Build application") {
         createImageStream(resources.ImageStream, namespace)
         buildProject(resources.BuildConfig, namespace)
     }
