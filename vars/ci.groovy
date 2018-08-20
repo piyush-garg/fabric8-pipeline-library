@@ -5,11 +5,11 @@ def call(Map args = [:], Closure body) {
     //def config = [templateConfig1: "cd"]
     def targetBranch = args.branch ?: /^PR-\d+$/
 
-    echo "branch name ${env.BRANCH_NAME}"
-    echo "target ${targetBranch}"
-    echo "test ${env.BRANCH_NAME ==~ targetBranch}"
+    echo "branch name ${env.BRANCH_NAME}after"
+    echo "target ${targetBranch}after"
+    echo "test ${env.BRANCH_NAME.trim() ==~ targetBranch}"
 
-    if (env.BRANCH_NAME ==~ targetBranch) {
+    if (env.BRANCH_NAME.trim() ==~ targetBranch) {
         //echo "templateconfig ${body.templateConfig}"
         //echo "resoures ${resources}"
         //echo "resources ${body.resources}"
