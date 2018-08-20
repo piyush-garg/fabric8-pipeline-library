@@ -1,11 +1,11 @@
 #!/usr/bin/groovy
 import io.fabric8.Utils;
 
-def call(String envName = null, Map resources, boolean manual = false) {
+def call(Map resources, String envName, Map args = [:]) {
     def userNamespace = new Utils().getUsersNamespace();
     def deployNamespace = userNamespace + "-" + envName;
 
-    if (manual) {
+    if (args.approval == 'manual') {
         askForInput()
     }
 
