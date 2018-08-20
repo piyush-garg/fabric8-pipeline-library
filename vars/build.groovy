@@ -2,17 +2,10 @@
 
 import io.fabric8.Utils;
 
-
 def call(resources, namespace = new Utils().getUsersNamespace()) {
     stage("Build application") {
         createImageStream(resources.ImageStream, namespace)
         buildProject(resources.BuildConfig, namespace)
-    }
-
-    post {
-        always {
-            echo 'Hope is the best thing!!!'
-        }
     }
 }
 
