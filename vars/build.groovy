@@ -4,7 +4,9 @@ import io.fabric8.Utils;
 
 def call(Map args) {
     stage("Build application") {
+        echo "before ${args}"
         def namespace = args.namespace ?: new Utils().getUsersNamespace()
+        echo "after ${args}"
         createImageStream(args.app.ImageStream, namespace)
         buildProject(args.app.BuildConfig, namespace)
     }
