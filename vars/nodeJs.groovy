@@ -12,8 +12,8 @@ def call(Map parameters = [:], Closure body) {
 
         //body.resolveStrategy = Closure.DELEGATE_FIRST
         //body.delegate = config
-        echo "templateconfig ${body.templateConfig}"
-        body.cd.setProperty("resources" , "resources")
+        //echo "templateconfig ${body.templateConfig}"
+        //body.cd.setProperty("resources" , "resources")
         body()
 
         //echo "nodeJs config ${config}"
