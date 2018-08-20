@@ -1,13 +1,30 @@
 #!/usr/bin/groovy
 import io.fabric8.Utils;
 
-def call(envName = null, resources) {
+def call(String envName = null, Map resources, boolean manual = false) {
     def userNamespace = new Utils().getUsersNamespace();
     def deployNamespace = userNamespace + "-" + envName;
+
+    if (manual) {
+        askForInput()
+    }
 
     stage ("Deploy to ${envName}") {
         tagImageToDeployEnv(deployNamespace, userNamespace, resources.ImageStream, resources.tag)
         deployEnvironment(deployNamespace, resources.DeploymentConfig, resources.Service, resources.Route)
+    }
+}
+
+def askForInput() {
+    def approvalTimeOutMinutes = 30;
+    def proceedMessage = """Would you like to promote to the next environment?
+          """
+    try {
+        timeout(time: approvalTimeOutMinutes, unit: 'MINUTES') {
+            input id: 'Proceed', message: "\n${proceedMessage}"
+        }
+    } catch (err) {
+        throw err
     }
 }
 
