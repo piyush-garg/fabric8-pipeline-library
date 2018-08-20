@@ -8,7 +8,7 @@ def call(Map parameters = [:], Closure body) {
     //def config = [templateConfig: "nodeJs"]
     //def config = ["template":"processed templateg"]
     node {
-        //checkout scm
+        checkout scm
 
         //body.resolveStrategy = Closure.DELEGATE_FIRST
         //body.delegate = config

@@ -15,6 +15,7 @@ def call(Map templateConfig, String yamlFile = ".openshiftio/application.yaml") 
 
 def prepareTemplateParams(templateConfig) {
     def templateParams = templateConfig ?: [:]
+    echo "build number : ${env.BUILD_NUMBER}"
     templateParams["SUFFIX_NAME"] = templateParams["SUFFIX_NAME"] ?: "-${env.BRANCH_NAME}".toLowerCase()
     templateParams["SOURCE_REPOSITORY_URL"] = templateParams["SOURCE_REPOSITORY_URL"] ?: shWithOutput("git config remote.origin.url")
     templateParams["SOURCE_REPOSITORY_REF"] = templateParams["SOURCE_REPOSITORY_REF"] ?: shWithOutput("git rev-parse --short HEAD")
