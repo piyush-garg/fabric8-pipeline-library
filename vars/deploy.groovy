@@ -6,7 +6,7 @@ def call(Map args = [:]) {
     def deployNamespace = userNamespace + "-" + args.env;
 
     if (args.approval == 'manual') {
-        askForInput()
+        askForInput(args.tag)
     }
 
     stage ("Deploy to ${args.env}") {
