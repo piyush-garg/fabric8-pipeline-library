@@ -15,16 +15,19 @@ def call(Map args = [:]) {
     }
 }
 
-def askForInput() {
-    def approvalTimeOutMinutes = 30;
-    def proceedMessage = """Would you like to promote to the next environment?
-          """
-    try {
-        timeout(time: approvalTimeOutMinutes, unit: 'MINUTES') {
-            input id: 'Proceed', message: "\n${proceedMessage}"
+def askForInput(String version) {
+    def approvalTimeOutMinutes = 30
+    def appVersion = version ? "version ${version}" : "application"
+    def proceedMessage = """Would you like to promote ${appVersion} to the next environment?"""
+
+    stage("Approve") {
+        try {
+            timeout(time: approvalTimeOutMinutes, unit: 'MINUTES') {
+                input id: 'Proceed', message: "\n${proceedMessage}"
+            }
+        } catch (err) {
+            throw err
         }
-    } catch (err) {
-        throw err
     }
 }
 
