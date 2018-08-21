@@ -18,7 +18,7 @@ def call(Map params, String yamlFile = ".openshiftio/application.yaml") {
     def templateString = shWithOutput("oc process -f .openshiftio/application.yaml ${templateParamString} -o yaml")
 
     def templateResources = parseTemplateResources(templateString)
-    templateResources["tag"] = params["RELEASE_VERSION"]
+    templateResources["tag"] = args["RELEASE_VERSION"]
 
     return templateResources
 }
