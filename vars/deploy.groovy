@@ -6,7 +6,7 @@ def call(Map args = [:]) {
     def deployNamespace = userNamespace + "-" + args.env;
 
     if (args.approval == 'manual') {
-        askForInput(args.tag)
+        askForInput(args.apps.tag, args.env)
     }
 
     stage ("Deploy to ${args.env}") {
@@ -15,10 +15,11 @@ def call(Map args = [:]) {
     }
 }
 
-def askForInput(String version) {
+def askForInput(String version, String environment) {
     def approvalTimeOutMinutes = 30
     def appVersion = version ? "version ${version}" : "application"
-    def proceedMessage = """Would you like to promote ${appVersion} to the next environment?"""
+    def appEnvironment = environment ? "${environment} environment" : "next environment"
+    def proceedMessage = """Would you like to promote ${appVersion} to the ${appEnvironment}?"""
 
     stage("Approve") {
         try {

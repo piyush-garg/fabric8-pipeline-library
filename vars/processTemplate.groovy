@@ -10,8 +10,6 @@ def call(Map params, String yamlFile = ".openshiftio/application.yaml") {
     def args = [:]
     params.each{k, v -> args[k.toUpperCase()] = v }
 
-    echo "${args}"
-
     def templateParams = prepareTemplateParams(args)
     def templateParamString = toParamString(templateParams)
 
