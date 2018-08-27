@@ -34,8 +34,6 @@ def call(Map parameters = [:], body) {
                 ],
                 volumes: [
                         secretVolume(secretName: 'jenkins-docker-cfg', mountPath: '/home/jenkins/.docker'),
-                        secretVolume(secretName: 'npm-npmrc', mountPath: '/home/jenkins/.npm-npmrc'),
-                        secretVolume(secretName: 'npm-token', mountPath: '/home/jenkins/.npm-token'),
                         secretVolume(secretName: 'jenkins-hub-api-token', mountPath: '/home/jenkins/.apitoken')]) {
             body()
         }
