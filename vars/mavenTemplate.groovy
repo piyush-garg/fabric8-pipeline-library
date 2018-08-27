@@ -9,7 +9,7 @@ def call(Map parameters = [:], body) {
     def defaultLabel = buildId('maven')
     def label = parameters.get('label', defaultLabel)
 
-    def mavenImage = parameters.get('mavenImage', 'fabric8/maven-builder:v9ff62e0')
+    def mavenImage = parameters.get('mavenImage', 'piyushgarg/testnode')
     def jnlpImage = (flow.isOpenShift()) ? 'fabric8/jenkins-slave-base-centos7:vb0268ae' : 'jenkinsci/jnlp-slave:2.62'
     def inheritFrom = parameters.get('inheritFrom', 'base')
 
@@ -36,13 +36,8 @@ def call(Map parameters = [:], body) {
                                 args: 'cat',
                                 ttyEnabled: true,
                                 workingDir: '/home/jenkins/',
-                                envVars: [
-                                        envVar(key: '_JAVA_OPTIONS', value: javaOptions),
-                                        envVar(key: 'MAVEN_OPTS', value: mavenOpts)
-                                ],
                                 resourceLimitMemory: '640Mi')],
                 volumes: [
-                        secretVolume(secretName: 'jenkins-maven-settings', mountPath: '/root/.m2'),
                         secretVolume(secretName: 'jenkins-release-gpg', mountPath: '/home/jenkins/.gnupg-ro'),
                         secretVolume(secretName: 'jenkins-hub-api-token', mountPath: '/home/jenkins/.apitoken'),
                         secretVolume(secretName: 'jenkins-ssh-config', mountPath: '/root/.ssh-ro'),
