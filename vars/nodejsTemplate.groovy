@@ -20,7 +20,7 @@ def call(Map parameters = [:], body) {
                         containerTemplate(
                                 name: 'nodejs',
                                 image: "${nodejsImage}",
-                                command: '/bin/sh -c',
+                                command: '/bin/bash',
                                 args: 'cat',
                                 ttyEnabled: true,
                                 workingDir: '/home/jenkins/',
