@@ -18,12 +18,6 @@ def call(Map parameters = [:], body) {
     podTemplate(cloud: cloud, label: label, inheritFrom: "${inheritFrom}", serviceAccount: 'jenkins',
                 containers: [
                         containerTemplate(
-                                name: 'jnlp',
-                                image: "${jnlpImage}",
-                                args: '${computer.jnlpmac} ${computer.name}',
-                                workingDir: '/home/jenkins/',
-                                resourceLimitMemory: '256Mi'),
-                        containerTemplate(
                                 name: 'nodejs',
                                 image: "${nodejsImage}",
                                 command: '/bin/sh -c',
@@ -31,6 +25,13 @@ def call(Map parameters = [:], body) {
                                 ttyEnabled: true,
                                 workingDir: '/home/jenkins/',
                                 resourceLimitMemory: '640Mi'
+                        ),
+                        containerTemplate(
+                                name: 'jnlp',
+                                image: "${jnlpImage}",
+                                args: '${computer.jnlpmac} ${computer.name}',
+                                workingDir: '/home/jenkins/',
+                                resourceLimitMemory: '256Mi'
                         )
                 ],
                 volumes: [
