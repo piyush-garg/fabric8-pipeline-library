@@ -9,7 +9,7 @@ def call(Map parameters = [:], body) {
 
     def nodejsImage = parameters.get('nodejsImage', 'piyushgarg/testnode')
     def inheritFrom = parameters.get('inheritFrom', 'base')
-    def jnlpImage = (flow.isOpenShift()) ? 'fabric8/jenkins-slave-base-centos7:v54e55b7' : 'jenkinsci/jnlp-slave:2.62'
+    def jnlpImage = (flow.isOpenShift()) ? 'fabric8/jenkins-slave-base-centos7:vb0268ae' : 'jenkinsci/jnlp-slave:2.62'
 
     def cloud = flow.getCloudConfig()
 
