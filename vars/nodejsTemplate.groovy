@@ -14,18 +14,37 @@ def call(Map parameters = [:], body) {
     def cloud = flow.getCloudConfig()
 
     def utils = new io.fabric8.Utils()
+    
+    podTemplate(cloud: cloud, label: label, inheritFrom: "${inheritFrom}", serviceAccount: 'jenkins',
+                containers: [
+                        containerTemplate(
+                                name: 'jnlp',
+                                image: "${jnlpImage}",
+                                args: '${computer.jnlpmac} ${computer.name}',
+                                workingDir: '/home/jenkins/',
+                                resourceLimitMemory: '256Mi'),
+                        containerTemplate(
+                                name: 'nodejs',
+                                image: "${mavenImage}",
+                                command: '/bin/sh -c',
+                                args: 'cat',
+                                ttyEnabled: true,
+                                workingDir: '/home/jenkins/',
+                                resourceLimitMemory: '640Mi'
+                        )
+                ],
+                volumes: [
+                        secretVolume(secretName: 'jenkins-maven-settings', mountPath: '/root/.m2'),
+                        secretVolume(secretName: 'jenkins-release-gpg', mountPath: '/home/jenkins/.gnupg-ro'),
+                        secretVolume(secretName: 'jenkins-hub-api-token', mountPath: '/home/jenkins/.apitoken'),
+                        secretVolume(secretName: 'jenkins-ssh-config', mountPath: '/root/.ssh-ro'),
+                        secretVolume(secretName: 'jenkins-git-ssh', mountPath: '/root/.ssh-git-ro')
+                ]
+        ) 
+        {
 
-    podTemplate(cloud: cloud, label: label, inheritFrom: "${inheritFrom}",
-            containers: [
-                    containerTemplate(
-                            name: 'nodejs',
-                            image: "${nodejsImage}",
-                            command: '/bin/sh -c',
-                            args: 'cat',
-                            ttyEnabled: true,
-                            workingDir: '/home/jenkins/')
-            ]
-    ) {
-        body()
-    }
+            body(
+
+            )
+        }
 }
