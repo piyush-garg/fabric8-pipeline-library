@@ -25,7 +25,7 @@ def call(Map parameters = [:], body) {
                                 resourceLimitMemory: '256Mi'),
                         containerTemplate(
                                 name: 'nodejs',
-                                image: "${mavenImage}",
+                                image: "${nodejsImage}",
                                 command: '/bin/sh -c',
                                 args: 'cat',
                                 ttyEnabled: true,
