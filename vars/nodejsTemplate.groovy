@@ -25,6 +25,13 @@ def call(Map parameters = [:], body) {
                                 ttyEnabled: true,
                                 workingDir: '/home/jenkins/',
                                 resourceLimitMemory: '640Mi'
+                        ),
+                        containerTemplate(	
+                                name: 'jnlp',	
+                                image: "${jnlpImage}",	
+                                args: '${computer.jnlpmac} ${computer.name}',	
+                                workingDir: '/home/jenkins/',	
+                                resourceLimitMemory: '256Mi'
                         )
                 ],
                 volumes: [
