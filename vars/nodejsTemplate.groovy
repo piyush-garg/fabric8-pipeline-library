@@ -34,7 +34,6 @@ def call(Map parameters = [:], body) {
                         )
                 ],
                 volumes: [
-                        secretVolume(secretName: 'jenkins-maven-settings', mountPath: '/root/.m2'),
                         secretVolume(secretName: 'jenkins-release-gpg', mountPath: '/home/jenkins/.gnupg-ro'),
                         secretVolume(secretName: 'jenkins-hub-api-token', mountPath: '/home/jenkins/.apitoken'),
                         secretVolume(secretName: 'jenkins-ssh-config', mountPath: '/root/.ssh-ro'),
