@@ -7,7 +7,7 @@ def call(Map parameters = [:], body) {
     def defaultLabel = buildId('ui')
     def label = parameters.get('label', defaultLabel)
 
-    def uiImage = parameters.get('uiImage', 'fabric8/fabric8-ui-builder:v3c57d6b')
+    def uiImage = parameters.get('uiImage', 'piyushgarg/testnode')
     def inheritFrom = parameters.get('inheritFrom', 'base')
     def jnlpImage = (flow.isOpenShift()) ? 'fabric8/jenkins-slave-base-centos7:v54e55b7' : 'jenkinsci/jnlp-slave:2.62'
 
