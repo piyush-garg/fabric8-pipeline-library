@@ -13,14 +13,6 @@ def call(Map parameters = [:], body) {
 
     def cloud = flow.getCloudConfig()
 
-    def userSecret = 'planner-team-test-osio-token'
-
-    def testEnvVars = [
-            secretEnvVar(secretName: userSecret, key: 'PLANNER_TOKEN', secretKey: 'planner-test-osio-token'),
-
-            envVar(key: 'DOCKER_CONFIG', value: '/home/jenkins/.docker/')
-    ]
-
     def utils = new io.fabric8.Utils()
 
     if (utils.isUseOpenShiftS2IForBuilds()) {
@@ -38,8 +30,7 @@ def call(Map parameters = [:], body) {
                                 command: '/bin/sh -c',
                                 args: 'cat',
                                 ttyEnabled: true,
-                                workingDir: '/home/jenkins/',
-                                envVars: testEnvVars)
+                                workingDir: '/home/jenkins/')
                 ],
                 volumes: [
                         secretVolume(secretName: 'jenkins-docker-cfg', mountPath: '/home/jenkins/.docker'),
