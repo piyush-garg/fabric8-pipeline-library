@@ -21,7 +21,6 @@ def call(Map parameters = [:], body) {
                                 name: 'nodejs',
                                 image: "${nodejsImage}",
                                 command: '/bin/bash',
-                                args: 'cat',
                                 ttyEnabled: true,
                                 workingDir: '/home/jenkins/',
                                 resourceLimitMemory: '640Mi'
