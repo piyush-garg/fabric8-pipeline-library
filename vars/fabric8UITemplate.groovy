@@ -28,7 +28,7 @@ def call(Map parameters = [:], body) {
                                 name: 'ui',
                                 image: "${uiImage}",
                                 //command: '/bin/sh -c',
-                                args: '/bin/sh',
+                                //args: '/bin/sh',
                                 ttyEnabled: true,
                                 workingDir: '/home/jenkins/')
                 ],
