@@ -7,7 +7,7 @@ def call(Map parameters = [:], body) {
     def defaultLabel = buildId('ui')
     def label = parameters.get('label', defaultLabel)
 
-    def uiImage = parameters.get('uiImage', 'piyushgarg/testnode')
+    def uiImage = parameters.get('uiImage', 'openshift/jenkins-slave-nodejs-centos7')
     def inheritFrom = parameters.get('inheritFrom', 'base')
     def jnlpImage = (flow.isOpenShift()) ? 'fabric8/jenkins-slave-base-centos7:v54e55b7' : 'jenkinsci/jnlp-slave:2.62'
 
@@ -27,8 +27,8 @@ def call(Map parameters = [:], body) {
                         containerTemplate(
                                 name: 'ui',
                                 image: "${uiImage}",
-                                //command: '/bin/bash',
-                                args: '/bin/bash',
+                                command: '/bin/sh -c',
+                                args: 'cat',
                                 ttyEnabled: true,
                                 workingDir: '/home/jenkins/')
                 ],
