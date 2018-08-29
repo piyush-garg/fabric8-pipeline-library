@@ -1,0 +1,5 @@
+
+interface Hook {
+
+    void execute()
+}

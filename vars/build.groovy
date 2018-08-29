@@ -1,6 +1,9 @@
 #!/usr/bin/groovy
 
-import io.fabric8.Utils;
+@Grab( 'org.slf4j:slf4j-api:1.7.5' )
+@Grab( 'org.reflections:reflections:0.9.9-RC1' )
+import org.reflections.*
+import io.fabric8.Utils
 
 def call(Map args) {
     stage("Build application") {
@@ -9,10 +12,10 @@ def call(Map args) {
         createImageStream(args.app.ImageStream, namespace)
         buildProject(args.app.BuildConfig, namespace)
 
-        def hooks = [{ echo "analytics"}] // set of hooks following `interface BuildHook`
-        hooks.each {
-            h -> h()
+        new Reflections( 'io.fabric8' ).getSubTypesOf( Hook ).each {
+            echo "{$it.name}"
         }
+
     }
 }
 
