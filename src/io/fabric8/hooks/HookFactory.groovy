@@ -12,7 +12,7 @@ class HookFactory {
     }
 
     public List<Hook> getHooks() {
-        def content = new File("resources/default-hooks").text
+        def content = libraryResource resource: 'default-hooks'
         println content
     }
 }
