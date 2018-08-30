@@ -12,7 +12,7 @@ class HookFactory {
     }
 
     public List<Hook> getHooks() {
-        def content = libraryResource resource: 'default-hooks'
+        def content = libraryResource 'default-hooks'
         println content
     }
 }
