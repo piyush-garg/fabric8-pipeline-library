@@ -27,7 +27,7 @@ def call(Map parameters = [:], body) {
                         containerTemplate(
                                 name: 'ui',
                                 image: "${uiImage}",
-                                command: 'sh -c',
+                                command: '/bin/sh -c',
                                 args: 'cat',
                                 ttyEnabled: true,
                                 workingDir: '/home/jenkins/')
