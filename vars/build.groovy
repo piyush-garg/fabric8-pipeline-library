@@ -5,17 +5,16 @@
 import org.reflections.*
 import io.fabric8.Utils
 
-def call(Map args) {
+def call(Map args, Closure body) {
     stage("Build application") {
 
         def namespace = args.namespace ?: new Utils().getUsersNamespace()
         createImageStream(args.app.ImageStream, namespace)
         buildProject(args.app.BuildConfig, namespace)
 
-        new Reflections( 'io.fabric8' ).getSubTypesOf( Hook ).each {
+        new Reflections('io.fabric8').getSubTypesOf(Hook).each {
             echo "{$it.name}"
         }
-
     }
 }
 

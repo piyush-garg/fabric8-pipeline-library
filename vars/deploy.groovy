@@ -49,10 +49,10 @@ def deployEnvironment(deployNamespace, dc,  service, route) {
     displayRouteURL(deployNamespace, route)
 }
 
-def displayRouteURL(nameSpace, route) {
+def displayRouteURL(namespace, route) {
     try {
-        ROUTE_PREVIEW = shWithOutput("oc get route -n ${nameSpace} ${route.metadata.name} --template 'http://{{.spec.host}}'")
-        echo nameSpace.capitalize() + " URL: ${ROUTE_PREVIEW}"
+        ROUTE_PREVIEW = shWithOutput("oc get route -n ${namespace} ${route.metadata.name} --template 'http://{{.spec.host}}'")
+        echo namespace.capitalize() + " URL: ${ROUTE_PREVIEW}"
     } catch (err) {
         error "Error running OpenShift command ${err}"
     }
