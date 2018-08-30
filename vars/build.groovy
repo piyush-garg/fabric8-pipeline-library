@@ -1,13 +1,13 @@
 #!/usr/bin/groovy
 import io.fabric8.Utils
-import io.fabric8.HookFactory
+import io.fabric8.hooks.HookFactory
 
-def call(Map args, Closure body) {
+def call(Map args) {
     stage("Build application") {
 
-        def namespace = args.namespace ?: new Utils().getUsersNamespace()
-        createImageStream(args.app.ImageStream, namespace)
-        buildProject(args.app.BuildConfig, namespace)
+        //def namespace = args.namespace ?: new Utils().getUsersNamespace()
+        //createImageStream(args.app.ImageStream, namespace)
+        //buildProject(args.app.BuildConfig, namespace)
 
         def factory = new HookFactory()
         factory.getHooks()

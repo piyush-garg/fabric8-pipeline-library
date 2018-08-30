@@ -1,5 +1,4 @@
-import io.fabric8.HookEvent
-import io.fabric8.Hook
+package io.fabric8.hooks
 
 class HookFactory {
     def HookEvent event
@@ -13,7 +12,7 @@ class HookFactory {
     }
 
     public List<Hook> getHooks() {
-        def content = libraryResource '/default-hooks'
+        def content = new File("resources/default-hooks").text
         println content
     }
 }

@@ -1,7 +1,7 @@
-
+package io.fabric8.hooks
 
 class TestHook implements Hook {
     void execute() {
-        echo "Testhook execution"
+        echo "Test hook execution"
     }
 }
