@@ -1,5 +1,4 @@
 
 interface Hook {
-
     void execute()
 }
