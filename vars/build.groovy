@@ -1,6 +1,5 @@
 #!/usr/bin/groovy
 import io.fabric8.Utils
-import io.fabric8.hooks.HookFactory
 
 def call(Map args) {
     stage("Build application") {
