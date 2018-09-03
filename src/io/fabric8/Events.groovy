@@ -12,7 +12,7 @@ class Events implements Serializable {
         events.each { e ->
             listeners[e] = listeners[e] ?: [] as Set
             listeners[e].add(c)
-            println "... registered for $e ${listeners[e]}"
+            println "registered for $e ${listeners[e]}"
         }
     }
 

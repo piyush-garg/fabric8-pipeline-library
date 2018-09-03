@@ -11,7 +11,7 @@ def call(Map args = [:]) {
 
     stage ("Deploy to ${args.env}") {
         tagImageToDeployEnv(deployNamespace, userNamespace, args.app.ImageStream, args.app.tag)
-        deployEnvironment(deployNamespace, args.app.DeploymentConfig, args.app.Service, args.app.Route)
+        deployEnvironment(deployNamespace, args.app.tag, args.app.DeploymentConfig, args.app.Service, args.app.Route)
     }
 }
 
@@ -41,21 +41,32 @@ def tagImageToDeployEnv(deployNamespace, userNamespace, is, tag) {
     }
 }
 
-def deployEnvironment(deployNamespace, dc,  service, route) {
+def deployEnvironment(deployNamespace, version, dc,  service, route) {
     ocApplyResource(dc, deployNamespace)
     openshiftVerifyDeployment(depCfg: "${dc.metadata.name}", namespace: "${deployNamespace}")
     ocApplyResource(service, deployNamespace)
     ocApplyResource(route, deployNamespace)
-    displayRouteURL(deployNamespace, route)
+    def routeUrl = displayRouteURL(deployNamespace, route)
+    def yaml = """
+      ---
+      environmentName: "Stage"
+      serviceUrls:
+        spring-boot-application: "$routeUrl"
+      deploymentVersions:
+        spring-boot-application: "$version"
+    """
+    new Utils().addAnnotationToBuild("environment.services.fabric8.io/$deployNamespace", yaml);
 }
 
 def displayRouteURL(namespace, route) {
     try {
-        ROUTE_PREVIEW = shWithOutput("oc get route -n ${namespace} ${route.metadata.name} --template 'http://{{.spec.host}}'")
-        echo namespace.capitalize() + " URL: ${ROUTE_PREVIEW}"
+        def routeUrl = shWithOutput("oc get route -n ${namespace} ${route.metadata.name} --template 'http://{{.spec.host}}'")
+        echo namespace.capitalize() + " URL: ${routeUrl}"
+        return routeUrl
     } catch (err) {
         error "Error running OpenShift command ${err}"
     }
+    return null
 }
 
 def ocApplyResource(resource, namespace) {
