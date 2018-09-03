@@ -6,15 +6,7 @@ import io.fabric8.EventType
 import io.fabric8.Events
 
 def register() {
-    Events.on(EventType.PIPELINE_START) {
-        sh "ls ."
-    }
-
-    Events.on([EventType.PIPELINE_START]) {
-        echo "end"
-    }
-
-    Events.on(EventType.BUILD_SUCCESS) {
+    Events.on(EventType.BUILD_SUCCES) {
         echo "invoking bayesian analytics ${it}"
     }
 }
