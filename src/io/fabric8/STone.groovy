@@ -18,7 +18,6 @@ class STone implements Serializable {
     }
 
     static void on() {
-        instance()
-        Println "hello"
+        instance().t = 1
     }
 }
