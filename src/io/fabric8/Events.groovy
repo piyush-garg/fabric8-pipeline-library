@@ -3,15 +3,15 @@ package io.fabric8
 /**
  * Created by hshinde on 9/3/18.
  */
-class events implements Serializable {
+class Events implements Serializable {
     private listeners = [:]
-    static private events instance
+    static private Events instance
 
-    private events() {}
+    private Events() {}
 
-    static events instance() {
+    static Events instance() {
         if(instance == null) {
-            instance = new events()
+            instance = new Events()
         }
 
         return instance;
