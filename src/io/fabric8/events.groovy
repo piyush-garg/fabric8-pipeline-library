@@ -4,7 +4,6 @@ class d {
  static listeners = [:]
 }
 
-
 static def on(String event, Closure c) {
   on([event], c)
 }
@@ -12,7 +11,7 @@ static def on(String event, Closure c) {
 static def on(List events, Closure c) {
   events.each { e ->
     d.listeners[e] = d.listeners[e] ?: [] as Set
-    d.listeners[e] << c
+    d.listeners[e].add(c)
     println "... registered for $e ${d.listeners[e]}"
   }
 }
