@@ -1,7 +1,7 @@
 package io.fabric8
 
 class Events implements Serializable {
-    enum EVENT {
+    public enum EVENT {
         PIPELINE_START,
         PIPELINE_END
     }
