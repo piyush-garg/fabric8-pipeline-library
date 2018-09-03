@@ -3,13 +3,14 @@
 package io.fabric8.plugins
 
 import io.fabric8.Events
+import static io.fabric8.Events.EVENT.*
 
 def register() {
-    Events.on("pipeline.start") {
+    Events.on(PIPELINE_START) {
         sh "ls ."
     }
 
-    Events.on(["pipeline.end"]) {
+    Events.on([PIPELINE_END]) {
         echo "end"
     }
 }

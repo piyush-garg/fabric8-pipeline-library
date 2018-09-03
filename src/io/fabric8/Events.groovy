@@ -1,6 +1,11 @@
 package io.fabric8
 
 class Events implements Serializable {
+    enum EVENT {
+        PIPELINE_START,
+        PIPELINE_END
+    }
+
     static private listeners = [:]
 
     static def on(String event, Closure c) {
