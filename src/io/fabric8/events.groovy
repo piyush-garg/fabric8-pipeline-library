@@ -1,7 +1,7 @@
 package io.fabric8
 
 class events implements Serializable {
-    /*private Map listeners = [:]
+    private listeners = [:]
     static private events instance
 
     private events() {}
@@ -36,5 +36,5 @@ class events implements Serializable {
             }
             listeners[e].each { c -> c.call([name: e], args) }
         }
-    }*/
+    }
 }

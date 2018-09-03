@@ -4,7 +4,6 @@ import io.fabric8.hooks.HookFactory
 
 def call(Map args) {
     stage("Build application") {
-
         def namespace = args.namespace ?: new Utils().getUsersNamespace()
         createImageStream(args.app.ImageStream, namespace)
         buildProject(args.app.BuildConfig, namespace)

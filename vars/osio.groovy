@@ -1,6 +1,5 @@
 #!/usr/bin/groovy
 import io.fabric8.Event
-import io.fabric8.events
 import io.fabric8.plugins.*
 
 def call(Map parameters = [:], Closure body) {
@@ -9,14 +8,12 @@ def call(Map parameters = [:], Closure body) {
     def label = parameters.get('label', defaultLabel)
     def resources = "hello"
 
-    //def config = [templateConfig: "nodeJs"]
-    //def config = ["template":"processed templateg"]
     node {
 
         //TODO: delete this
         // loading
-        /*new analytics().register()
-        events.emit("pipeline.start", "testarg")*/
+        new analytics().register()
+        Event.emit("pipeline.start", "testarg")
 
         Event.on()
 

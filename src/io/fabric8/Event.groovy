@@ -4,7 +4,7 @@ package io.fabric8
  * Created by hshinde on 9/3/18.
  */
 class Event implements Serializable {
-    int t
+    private listeners = [:]
     static private Event instance
 
     private Event() {}
@@ -17,8 +17,28 @@ class Event implements Serializable {
         return instance;
     }
 
-    static void on() {
-        instance().t = 1
-        System.out.println("hello")
+    static def on(String event, Closure c) {
+        instance().on([event], c)
+    }
+
+    def on(List events, Closure c) {
+        events.each { e ->
+            listeners[e] = listeners[e] ?: [] as Set
+            listeners[e].add(c)
+            println "... registered for $e ${listeners[e]}"
+        }
+    }
+
+    static def emit(String event, Object... args) {
+        instance().emit([event], args)
+    }
+
+    def emit(List events, Object... args) {
+        events.each { e ->
+            if (!listeners[e]) {
+                return
+            }
+            listeners[e].each { c -> c.call([name: e], args) }
+        }
     }
 }
