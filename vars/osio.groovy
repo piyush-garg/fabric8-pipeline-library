@@ -1,7 +1,6 @@
 #!/usr/bin/groovy
 
-import io.fabric8.Event
-import io.fabric8.STone
+import io.fabric8.events
 import io.fabric8.plugins.*
 
 def call(Map parameters = [:], Closure body) {
@@ -13,12 +12,11 @@ def call(Map parameters = [:], Closure body) {
     //def config = [templateConfig: "nodeJs"]
     //def config = ["template":"processed templateg"]
     node {
-        // loading
-        //new analytics().register()
 
         //TODO: delete this
-        //Event.emit("pipeline.start", "testarg")
-        STone.instance().on()
+        // loading
+        new analytics().register()
+        events.emit("pipeline.start", "testarg")
 
         checkout scm
 

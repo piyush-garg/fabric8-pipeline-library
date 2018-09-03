@@ -1,10 +1,12 @@
+#!/usr/bin/groovy
+
 package io.fabric8.plugins
 
-import io.fabric8.Event
+import io.fabric8.events
 
 def register() {
-    /*Event.on("pipeline.start") {
+    events.on("pipeline.start") {
         sh "ls ."
-    }*/
+    }
 }
 
