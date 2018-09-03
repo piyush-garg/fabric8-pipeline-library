@@ -1,7 +1,6 @@
 #!/usr/bin/groovy
 package io.fabric8
 
-@Singleton
 class d {
     static listeners = [:]
 }
@@ -11,10 +10,11 @@ static def on(String event, Closure c) {
 }
 
 static def on(List events, Closure c) {
+    def listeners = io.fabric8.d.listeners
     events.each { e ->
-        d.listeners[e] = d.listeners[e] ?: [] as Set
-        d.listeners[e].add(c)
-        println "... registered for $e ${d.listeners[e]}"
+        listeners[e] = listeners[e] ?: [] as Set
+        listeners[e].add(c)
+        println "... registered for $e ${listeners[e]}"
     }
 }
 
