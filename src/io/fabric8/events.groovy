@@ -1,4 +1,3 @@
-#!/usr/bin/groovy
 package io.fabric8
 
 class events implements Serializable {
