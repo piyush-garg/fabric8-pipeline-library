@@ -15,7 +15,7 @@ def register() {
     }
 
     Events.on(EventType.BUILD_SUCCESS) {
-        echo "invoking bayesian analytics"
+        echo "invoking bayesian analytics ${it}"
     }
 }
 
