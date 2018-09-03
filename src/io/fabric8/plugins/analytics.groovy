@@ -13,5 +13,9 @@ def register() {
     Events.on([EventType.PIPELINE_START]) {
         echo "end"
     }
+
+    Events.on(EventType.BUILD_SUCCESS) {
+        echo "invoking bayesian analytics"
+    }
 }
 
