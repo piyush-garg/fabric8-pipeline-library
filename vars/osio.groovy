@@ -18,7 +18,7 @@ def call(Map parameters = [:], Closure body) {
 
         //TODO: delete this
         //Event.emit("pipeline.start", "testarg")
-        STone.instance.on()
+        STone.instance().on()
 
         checkout scm
 
