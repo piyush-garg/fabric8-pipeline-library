@@ -3,15 +3,15 @@ package io.fabric8
 /**
  * Created by hshinde on 9/3/18.
  */
-class STone implements Serializable {
+class Event implements Serializable {
     int t
-    static private STone instance
+    static private Event instance
 
-    private STone() {}
+    private Event() {}
 
-    static STone instance() {
+    static Event instance() {
         if(instance == null) {
-            instance = new STone()
+            instance = new Event()
         }
 
         return instance;
