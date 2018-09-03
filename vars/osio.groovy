@@ -16,7 +16,7 @@ def call(Map parameters = [:], Closure body) {
         new analytics().register()
 
         //TODO: delete this
-        Event.instance.emit("pipeline.start", "testarg")
+        Event.emit("pipeline.start", "testarg")
 
         checkout scm
 
