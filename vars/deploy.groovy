@@ -51,9 +51,9 @@ def deployEnvironment(deployNamespace, version, dc,  service, route) {
       ---
       environmentName: "Stage"
       serviceUrls:
-        spring-boot-application: "$routeUrl"
+        nodejs-health-check: "$routeUrl"
       deploymentVersions:
-        spring-boot-application: "$version"
+        nodejs-health-check: "$version"
     """
     new Utils().addAnnotationToBuild("environment.services.fabric8.io/$deployNamespace", yaml);
 }
