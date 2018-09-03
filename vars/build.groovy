@@ -9,9 +9,9 @@ def call(Map args) {
             def namespace = args.namespace ?: new Utils().getUsersNamespace()
             createImageStream(args.app.ImageStream, namespace)
             buildProject(args.app.BuildConfig, namespace)
-            Events.emit("pipeline.build_success", namespace)
+            Events.emit("build.success", namespace)
         } catch (e) {
-            Events.emit("pipeline.build_failure", e)
+            Events.emit("build.failure", e)
         }
     }
 }
