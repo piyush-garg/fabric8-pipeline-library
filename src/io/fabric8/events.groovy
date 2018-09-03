@@ -1,5 +1,8 @@
 package io.fabric8
 
+/**
+ * Created by hshinde on 9/3/18.
+ */
 class events implements Serializable {
     private listeners = [:]
     static private events instance
@@ -10,7 +13,8 @@ class events implements Serializable {
         if(instance == null) {
             instance = new events()
         }
-        return instance
+
+        return instance;
     }
 
     static def on(String event, Closure c) {
