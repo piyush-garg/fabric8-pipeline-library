@@ -3,7 +3,7 @@ package io.fabric8
 
 class events {
     private listeners = [:]
-    private static events instance;
+    static private events instance;
 
     private events() {}
 
