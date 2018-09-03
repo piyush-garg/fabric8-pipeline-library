@@ -1,14 +1,10 @@
 package io.fabric8
 
 class Events implements Serializable {
-    public enum EVENT {
-        PIPELINE_START,
-        PIPELINE_END
-    }
 
     static private listeners = [:]
 
-    static def on(EventType event, Closure c) {
+    static def on(String event, Closure c) {
         on([event], c)
     }
 
@@ -20,7 +16,7 @@ class Events implements Serializable {
         }
     }
 
-    static def emit(EventType event, Object... args) {
+    static def emit(String event, Object... args) {
         emit([event], args)
     }
 

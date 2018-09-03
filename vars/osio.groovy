@@ -1,5 +1,5 @@
 #!/usr/bin/groovy
-import io.fabric8.EventType
+
 import io.fabric8.Events
 import io.fabric8.plugins.*
 
@@ -11,13 +11,13 @@ def call(Map parameters = [:], Closure body) {
 
     node {
         new analytics().register()
-        Events.emit(EventType.PIPELINE_START, "testarg")
+        Events.emit("pipeline.start", "testarg")
 
         checkout scm
 
         body()
 
-        Events.emit(EventType.PIPELINE_END, "testarg")
+        Events.emit("pipeline.end", "testarg")
     }
 
 }

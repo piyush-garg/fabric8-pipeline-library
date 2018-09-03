@@ -2,11 +2,10 @@
 
 package io.fabric8.plugins
 
-import io.fabric8.EventType
 import io.fabric8.Events
 
 def register() {
-    Events.on(EventType.BUILD_SUCCES) {
+    Events.on("pipeline.build_success") {
         echo "invoking bayesian analytics ${it}"
     }
 }
