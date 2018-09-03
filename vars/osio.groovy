@@ -1,6 +1,6 @@
 #!/usr/bin/groovy
 
-import io.fabric8.events
+import io.fabric8.event
 import io.fabric8.plugins.*
 
 def call(Map parameters = [:], Closure body) {
@@ -17,7 +17,7 @@ def call(Map parameters = [:], Closure body) {
 
         //TODO: delete this
 
-        events.emit("pipeline.start", "testarg")
+        event.instance.emit("pipeline.start", "testarg")
 
         checkout scm
 

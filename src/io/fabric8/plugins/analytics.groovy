@@ -1,9 +1,9 @@
 package io.fabric8.plugins
 
-import io.fabric8.events
+import io.fabric8.event
 
 def register() {
-    events.on("pipeline.start") {
+    event.instance.on("pipeline.start") {
         sh "ls ."
     }
 }
