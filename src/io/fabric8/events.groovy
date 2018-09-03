@@ -1,9 +1,9 @@
 #!/usr/bin/groovy
 package io.fabric8
 
-class events {
-    private listeners = [:]
-    static private events instance;
+class events implements Serializable {
+    private Map listeners = [:]
+    static private events instance
 
     private events() {}
 

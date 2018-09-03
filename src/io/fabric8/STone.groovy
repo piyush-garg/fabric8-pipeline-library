@@ -5,7 +5,7 @@ package io.fabric8
  */
 class STone implements Serializable {
     int t
-    static private STone instance;
+    static private STone instance
 
     private STone() {}
 
