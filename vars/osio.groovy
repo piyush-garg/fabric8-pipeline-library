@@ -1,7 +1,7 @@
 #!/usr/bin/groovy
 
 import io.fabric8.Event
-import io.fabric8.STclass
+import io.fabric8.STone
 import io.fabric8.plugins.*
 
 def call(Map parameters = [:], Closure body) {
@@ -18,7 +18,7 @@ def call(Map parameters = [:], Closure body) {
 
         //TODO: delete this
         //Event.emit("pipeline.start", "testarg")
-        STclass.newInstance().on()
+        STone.instance.on()
 
         checkout scm
 
