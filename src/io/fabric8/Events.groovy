@@ -8,7 +8,7 @@ class Events implements Serializable {
 
     static private listeners = [:]
 
-    static def on(String event, Closure c) {
+    static def on(EventType event, Closure c) {
         on([event], c)
     }
 
@@ -20,7 +20,7 @@ class Events implements Serializable {
         }
     }
 
-    static def emit(String event, Object... args) {
+    static def emit(EventType event, Object... args) {
         emit([event], args)
     }
 
