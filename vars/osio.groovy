@@ -20,13 +20,13 @@ def call(Map parameters = [:], Closure body) {
 
         Event.on()
 
-        //checkout scm
+        checkout scm
 
         //body.resolveStrategy = Closure.DELEGATE_FIRST
         //body.delegate = config
         //echo "templateconfig ${body.templateConfig}"
         //body.cd.setProperty("resources" , "resources")
-        //body()
+        body()
 
         //echo "nodeJs config ${config}"
     }

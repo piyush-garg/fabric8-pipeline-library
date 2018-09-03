@@ -19,6 +19,6 @@ class Event implements Serializable {
 
     static void on() {
         instance().t = 1
-        echo "hello"
+        System.out.println("hello")
     }
 }
