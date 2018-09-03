@@ -19,6 +19,6 @@ class STone implements Serializable {
 
     static void on() {
         instance()
-        echo "hello ${t}"
+        Println "hello"
     }
 }
