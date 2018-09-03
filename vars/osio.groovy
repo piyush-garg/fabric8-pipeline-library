@@ -15,8 +15,6 @@ def call(Map parameters = [:], Closure body) {
         new analytics().register()
         Event.emit("pipeline.start", "testarg")
 
-        Event.on()
-
         checkout scm
 
         //body.resolveStrategy = Closure.DELEGATE_FIRST
