@@ -1,7 +1,7 @@
 package io.fabric8
 
 @Singleton
-class event {
+class Event {
   private Map listeners = [:]
 
   def on(String event, Closure c) {
