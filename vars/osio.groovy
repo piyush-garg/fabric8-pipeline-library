@@ -16,6 +16,8 @@ def call(Map parameters = [:], Closure body) {
         checkout scm
 
         body()
+
+        Events.emit(PIPELINE_END, "testarg")
     }
 
 }
