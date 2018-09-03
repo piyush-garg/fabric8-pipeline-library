@@ -1,5 +1,5 @@
 #!/usr/bin/groovy
-
+import io.fabric8.STone
 import io.fabric8.events
 import io.fabric8.plugins.*
 
@@ -15,8 +15,10 @@ def call(Map parameters = [:], Closure body) {
 
         //TODO: delete this
         // loading
-        new analytics().register()
-        events.emit("pipeline.start", "testarg")
+        /*new analytics().register()
+        events.emit("pipeline.start", "testarg")*/
+
+        STone.on()
 
         checkout scm
 
