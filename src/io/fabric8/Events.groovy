@@ -1,27 +1,13 @@
 package io.fabric8
 
-/**
- * Created by hshinde on 9/3/18.
- */
 class Events implements Serializable {
-    private listeners = [:]
-    static private Events instance
-
-    private Events() {}
-
-    static Events instance() {
-        if(instance == null) {
-            instance = new Events()
-        }
-
-        return instance;
-    }
+    static private listeners = [:]
 
     static def on(String event, Closure c) {
-        instance().on([event], c)
+        on([event], c)
     }
 
-    def on(List events, Closure c) {
+    static def on(List events, Closure c) {
         events.each { e ->
             listeners[e] = listeners[e] ?: [] as Set
             listeners[e].add(c)
@@ -30,10 +16,10 @@ class Events implements Serializable {
     }
 
     static def emit(String event, Object... args) {
-        instance().emit([event], args)
+        emit([event], args)
     }
 
-    def emit(List events, Object... args) {
+    static def emit(List events, Object... args) {
         events.each { e ->
             if (!listeners[e]) {
                 return
@@ -41,4 +27,5 @@ class Events implements Serializable {
             listeners[e].each { c -> c.call([name: e], args) }
         }
     }
+
 }

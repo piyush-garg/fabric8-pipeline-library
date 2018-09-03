@@ -8,5 +8,9 @@ def register() {
     Events.on("pipeline.start") {
         sh "ls ."
     }
+
+    Events.on(["pipeline.end"]) {
+        echo "end"
+    }
 }
 
