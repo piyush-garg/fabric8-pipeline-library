@@ -2,7 +2,6 @@
 import io.fabric8.Events
 import io.fabric8.Utils
 
-
 def call(Map args) {
     stage("Build application") {
         try {

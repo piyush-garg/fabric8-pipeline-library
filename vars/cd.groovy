@@ -1,6 +1,6 @@
 #!/usr/bin/groovy
 
-def call(Closure body) {
+def call(body = null) {
     //def resources = processTemplate(templateConfig)
     //def config = [templateConfig1: "cd"]
 
