@@ -11,8 +11,8 @@ def call(Map args = [:]) {
 
     stage ("Deploy to ${args.env}") {
         tagImageToDeployEnv(deployNamespace, userNamespace, args.app.ImageStream, args.app.tag)
-        def route = deployEnvironment(deployNamespace, args.app.DeploymentConfig, args.app.Service, args.app.Route)
-        displayRouteURLOnUI(route, args.app.Route, deployNamespace, args.env, args.app.tag)
+        def routeUrl = deployEnvironment(deployNamespace, args.app.DeploymentConfig, args.app.Service, args.app.Route)
+        displayRouteURLOnUI(deployNamespace, args.env, routeUrl, args.app.Route, args.app.tag)
     }
 }
 
