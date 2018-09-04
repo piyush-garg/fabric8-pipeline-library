@@ -48,11 +48,11 @@ def deployEnvironment(deployNamespace, version, dc,  service, route) {
     ocApplyResource(route, deployNamespace)
     def routeUrl = displayRouteURL(deployNamespace, route)
     def yaml = """---
-environmentName: "Stage"
+environmentName: "stage"
 serviceUrls:
-  nodejs-health-check: "$routeUrl"
+  $route.metadate.name: "$routeUrl"
 deploymentVersions:
-  nodejs-health-check: "$version"
+  $route.metadate.name: "$version"
 """
     new Utils().addAnnotationToBuild("environment.services.fabric8.io/$deployNamespace", yaml);
 }
