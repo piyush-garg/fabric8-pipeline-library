@@ -50,9 +50,9 @@ def deployEnvironment(deployNamespace, version, dc,  service, route) {
     def yaml = """---
 environmentName: "stage"
 serviceUrls:
-  $route.metadate.name: "$routeUrl"
+  $route.metadata.name: "$routeUrl"
 deploymentVersions:
-  $route.metadate.name: "$version"
+  $route.metadata.name: "$version"
 """
     new Utils().addAnnotationToBuild("environment.services.fabric8.io/$deployNamespace", yaml);
 }
