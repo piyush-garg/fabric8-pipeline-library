@@ -4,14 +4,17 @@ import io.fabric8.Utils
 
 def call(Map args) {
     stage("Build application") {
+        def status = ""
         try {
+            Events.emit("build.start")
             def namespace = args.namespace ?: new Utils().getUsersNamespace()
             createImageStream(args.app.ImageStream, namespace)
             buildProject(args.app.BuildConfig, namespace)
-            Events.emit("build.success", namespace)
+            status = "pass"
         } catch (e) {
-            Events.emit("build.failure", e)
+            status = "fail"
         }
+        Events.emit(["build.end", "build.${status}"], [status: status, namespace: namespace])
     }
 }
 
