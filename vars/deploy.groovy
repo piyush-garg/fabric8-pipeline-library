@@ -11,7 +11,8 @@ def call(Map args = [:]) {
 
     stage ("Deploy to ${args.env}") {
         tagImageToDeployEnv(deployNamespace, userNamespace, args.app.ImageStream, args.app.tag)
-        deployEnvironment(deployNamespace, args.app.tag, args.app.DeploymentConfig, args.app.Service, args.app.Route)
+        def route = deployEnvironment(deployNamespace, args.app.DeploymentConfig, args.app.Service, args.app.Route)
+        displayRouteURLOnUI(route, args.app.Route, deployNamespace, args.env, args.app.tag)
     }
 }
 
@@ -41,20 +42,24 @@ def tagImageToDeployEnv(deployNamespace, userNamespace, is, tag) {
     }
 }
 
-def deployEnvironment(deployNamespace, version, dc,  service, route) {
+def deployEnvironment(deployNamespace, dc, service, route) {
     ocApplyResource(dc, deployNamespace)
     openshiftVerifyDeployment(depCfg: "${dc.metadata.name}", namespace: "${deployNamespace}")
     ocApplyResource(service, deployNamespace)
     ocApplyResource(route, deployNamespace)
-    def routeUrl = displayRouteURL(deployNamespace, route)
-    def yaml = """---
-environmentName: "stage"
+    return displayRouteURL(deployNamespace, route)
+
+}
+
+def displayRouteURLOnUI(namespace, env, routeUrl, route, version) {
+   def routeMetadata = """---
+environmentName: "$env"
 serviceUrls:
   $route.metadata.name: "$routeUrl"
 deploymentVersions:
   $route.metadata.name: "$version"
 """
-    new Utils().addAnnotationToBuild("environment.services.fabric8.io/$deployNamespace", yaml);
+    new Utils().addAnnotationToBuild("environment.services.fabric8.io/$namespace", routeMetadata);
 }
 
 def displayRouteURL(namespace, route) {
