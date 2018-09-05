@@ -2,7 +2,8 @@
 
 def call(Map args = [:], body = null){
     def spec = specForImage(args.image, args.version?: 'latest')
-    pod image: spec.image, name: image, shell: spec.shell {
+    println "Got spec for $image : $version: $spec"
+    pod(image: spec.image, name: image, shell: spec.shell) {
       body()
     }
 }
@@ -21,12 +22,11 @@ def specForImage(image, version){
     ],
     "oc": [
       "latest": [
-            image: "piyushgarg/testnode:${version}",
+            image: "piyushgarg/testnode:latest",
             shell: '/bin/bash'
       ],
     ],
   ]
   // TODO: validate image in specs
-  println "Getting spec for $image : $version"
   return specs[image][version]
 }
