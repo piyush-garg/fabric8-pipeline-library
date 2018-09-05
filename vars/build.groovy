@@ -9,7 +9,7 @@ def call(Map args) {
         def namespace = args.namespace ?: new Utils().getUsersNamespace()
 
         try {
-          spawn image: "oc" {
+          spawn(image: "oc") {
               createImageStream(args.app.ImageStream, namespace)
               buildProject(args.app.BuildConfig, namespace)
               status = "pass"
