@@ -18,9 +18,9 @@ def call(Map args) {
             status = "fail"
             echo "build failed"
             throw e
+        } finally {
+          Events.emit(["build.end", "build.${status}"], [status: status, namespace: namespace])
         }
-
-        Events.emit(["build.end", "build.${status}"], [status: status, namespace: namespace])
     }
 }
 
@@ -48,6 +48,14 @@ def shWithOutput(String command) {
 
 def ocApplyResource(resource, namespace) {
     def resourceFile = "/tmp/${namespace}-${env.BUILD_NUMBER}-${resource.kind}.yaml"
+
+    sh """
+      ls /tmp
+    """
     writeYaml file: resourceFile, data: resource
+    sh """
+      ls /tmp
+      pwd
+    """
     sh "oc apply -f ${resourceFile} -n ${namespace}"
 }
