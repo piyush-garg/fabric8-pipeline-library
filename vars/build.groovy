@@ -1,6 +1,8 @@
 #!/usr/bin/groovy
 import io.fabric8.Events
 import io.fabric8.Utils
+import groovy.json.*
+
 
 def call(Map args) {
     stage("Build application") {
@@ -52,10 +54,15 @@ def ocApplyResource(resource, namespace) {
     sh """
       ls /tmp
     """
+    println "resource: $resource"
     writeYaml file: resourceFile, data: resource
+
     sh """
+      ls /tmp
+      touch $resourceFile
       ls /tmp
       pwd
     """
-    sh "oc apply -f ${resourceFile} -n ${namespace}"
+    def json = new JsonBuilder(resource).toPrettyString()
+    sh "echo ${json} | oc apply -n ${namespace} -f - "
 }
