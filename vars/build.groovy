@@ -5,26 +5,23 @@ import groovy.json.*
 
 
 def call(Map args) {
+    stage("Build application") {
+        Events.emit("build.start")
+        def status = ""
+        def namespace = args.namespace ?: new Utils().getUsersNamespace()
 
-  stage("Build application") {
-    spawn("oc") {
-      Events.emit("build.start")
-      def status = ""
-      def namespace = args.namespace ?: new Utils().getUsersNamespace()
-
-      try {
-          createImageStream(args.app.ImageStream, namespace)
-          buildProject(args.app.BuildConfig, namespace)
-          status = "pass"
-      } catch (e) {
-          status = "fail"
-          echo "build failed"
-          throw e
-      } finally {
-        Events.emit(["build.end", "build.${status}"], [status: status, namespace: namespace])
-      }
+        try {
+            createImageStream(args.app.ImageStream, namespace)
+            buildProject(args.app.BuildConfig, namespace)
+            status = "pass"
+        } catch (e) {
+            status = "fail"
+            echo "build failed"
+            throw e
+        } finally {
+          Events.emit(["build.end", "build.${status}"], [status: status, namespace: namespace])
+        }
     }
-  }
 }
 
 def createImageStream(imageStream, namespace) {
