@@ -1,16 +1,25 @@
 #!/usr/bin/groovy
 import io.fabric8.Events
 import io.fabric8.Utils
+import groovy.json.*
+
 
 def call(Map args) {
     stage("Build application") {
+        Events.emit("build.start")
+        def status = ""
+        def namespace = args.namespace ?: new Utils().getUsersNamespace()
+
         try {
-            def namespace = args.namespace ?: new Utils().getUsersNamespace()
             createImageStream(args.app.ImageStream, namespace)
             buildProject(args.app.BuildConfig, namespace)
-            Events.emit("build.success", namespace)
+            status = "pass"
         } catch (e) {
-            Events.emit("build.failure", e)
+            status = "fail"
+            echo "build failed"
+            throw e
+        } finally {
+          Events.emit(["build.end", "build.${status}"], [status: status, namespace: namespace])
         }
     }
 }
@@ -38,7 +47,7 @@ def shWithOutput(String command) {
 }
 
 def ocApplyResource(resource, namespace) {
-    def resourceFile = "/tmp/${namespace}-${env.BUILD_NUMBER}-${resource.kind}.yaml"
+    def resourceFile = ".openshiftio/.tmp-${resource.kind.toLowerCase()}.yaml"
     writeYaml file: resourceFile, data: resource
-    sh "oc apply -f ${resourceFile} -n ${namespace}"
+    sh "oc apply -n ${namespace} -f $resourceFile"
 }
