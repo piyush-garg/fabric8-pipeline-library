@@ -10,11 +10,10 @@ def call(body) {
         // new analytics().register()
 
         Events.emit("pipeline.start", "testarg")
-        try {
-          spawn(image: "oc") {
-              checkout scm
-              body()
-          }
+        spawn(image: "oc") {
+            checkout scm
+            body()
+        }
         Events.emit("pipeline.end", "testarg")
     }
 }
