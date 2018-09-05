@@ -1,13 +1,14 @@
 #!/usr/bin/groovy
 import io.fabric8.Events
 import io.fabric8.Utils
+def utils = new Utils()
 
 def call(Map args) {
     stage("Build application") {
+        Events.emit("build.start")
         def status = ""
+        def namespace = args.namespace ?: utils.getUsersNamespace()
         try {
-            Events.emit("build.start")
-            def namespace = args.namespace ?: new Utils().getUsersNamespace()
             createImageStream(args.app.ImageStream, namespace)
             buildProject(args.app.BuildConfig, namespace)
             status = "pass"
