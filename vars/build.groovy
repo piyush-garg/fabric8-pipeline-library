@@ -7,13 +7,17 @@ def call(Map args) {
         Events.emit("build.start")
         def status = ""
         def namespace = args.namespace ?: new Utils().getUsersNamespace()
+
         try {
-            createImageStream(args.app.ImageStream, namespace)
-            buildProject(args.app.BuildConfig, namespace)
-            status = "pass"
+          spawn image: "oc" {
+              createImageStream(args.app.ImageStream, namespace)
+              buildProject(args.app.BuildConfig, namespace)
+              status = "pass"
+          }
         } catch (e) {
             status = "fail"
         }
+
         Events.emit(["build.end", "build.${status}"], [status: status, namespace: namespace])
     }
 }
