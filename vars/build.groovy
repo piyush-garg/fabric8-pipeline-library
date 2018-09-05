@@ -49,25 +49,17 @@ def shWithOutput(String command) {
 }
 
 def ocApplyResource(resource, namespace) {
-    // def resourceFile = "/tmp/${namespace}-${env.BUILD_NUMBER}-${resource.kind}.yaml"
-    def jsonFile = "/tmp/${namespace}-${env.BUILD_NUMBER}-${resource.kind}.json"
+    def resourceFile = ".openshiftio/.tmp-${resource.kind.toLowerCase()}.yaml"
+    sh """
+      pwd
+      ls .openshiftio
+    """
+
+    writeYaml file: resourceFile, data: resource
 
     sh """
       pwd
-      ls /tmp
+      ls .openshiftio
     """
-
-    println "resource: $resource"
-    def json = new JsonBuilder(resource).toPrettyString()
-    println "resource in json: \n $json"
-
-    // writeYaml file: resourceFile, data: resource
-    // writeJSON file: jsonFile, json: resource
-    new File(jsonFile).append(json)
-
-    sh """
-      pwd
-      ls /tmp
-    """
-    sh "oc apply -n ${namespace} -f $jsonFile "
+    sh "oc apply -n ${namespace} -f $resourceFile"
 }
