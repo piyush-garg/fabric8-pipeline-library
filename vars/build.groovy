@@ -10,7 +10,6 @@ def call(Map args) {
 
         try {
           spawn(image: "oc") {
-              checkout scm
               createImageStream(args.app.ImageStream, namespace)
               buildProject(args.app.BuildConfig, namespace)
               status = "pass"

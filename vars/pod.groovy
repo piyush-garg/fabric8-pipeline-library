@@ -5,8 +5,6 @@ def call(Map args = [:], body = null) {
     def flow = new Fabric8Commands()
     def label = buildId(args.name)
 
-    println " ... label: $label: $args"
-    println " ... label: $label: $args: ${jnlpTemplate()}"
     podTemplate(
       label: label,
       cloud: flow.getCloudConfig(),
