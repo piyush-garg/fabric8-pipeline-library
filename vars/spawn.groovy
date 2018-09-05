@@ -13,18 +13,18 @@ def specForImage(image, version){
       "latest": [
             image: "piyushgarg/test${image}:${version}",
             shell: '/bin/bash'
-        ]
+        ],
       "8.9": [
             image: "piyushgarg/test${image}:${version}",
             shell: '/bin/bash'
-      ]
+      ],
     ],
     "oc": [
       "latest": [
             image: "piyushgarg/test${image}:${version}",
             shell: '/bin/bash'
-      ]
-    ]
+      ],
+    ],
   ]
   // TODO: validate image in specs
   return specs[image][version]
