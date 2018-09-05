@@ -3,16 +3,16 @@ import io.fabric8.Fabric8Commands
 
 def call(Map args = [:], body = null) {
     def flow = new Fabric8Commands()
-    def cloud = flow.getCloudConfig()
     def label = buildId(args.name)
 
+    println " ... label: $label"
     podTemplate(
       label: label,
-      cloud: flow.getCloudConfig()
+      cloud: flow.getCloudConfig(),
       serviceAccount: 'jenkins',
       inheritFrom: 'base',
       containers: [ slaveTemplate(args.image, ) jnlpTemplate() ],
-      volumes:  volumes()
+      volumes: volumes(),
     ) {
       node (label) {
         container(name: args.name, shell: args.shell) {
