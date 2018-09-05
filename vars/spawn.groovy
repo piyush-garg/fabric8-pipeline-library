@@ -1,16 +1,31 @@
 #!/usr/bin/groovy
 
 def call(Map args = [:], body = null){
-    def spec = containerImageName(args.image, args.version)
-    pod(image: spec.image, containerName: spec.containerName, shell: spec.shell ) {
-        body()
+    def spec = specForImage(args.image, args.version?: 'latest')
+    pod image: spec.image, name: image, shell: spec.shell {
+      body()
     }
 }
 
-def containerImageName(image, version){
-    return [
-            image: "${image}:${version}",
-            containerName: 'node',
+def specForImage(image, version){
+  def specs = [
+    "node": [
+      "latest": [
+            image: "piyushgarg/test${image}:${version}",
             shell: '/bin/bash'
+        ]
+      "8.9": [
+            image: "piyushgarg/test${image}:${version}",
+            shell: '/bin/bash'
+      ]
+    ],
+    "oc": [
+      "latest": [
+            image: "piyushgarg/test${image}:${version}",
+            shell: '/bin/bash'
+      ]
     ]
+  ]
+  // TODO: validate image in specs
+  return specs[image][version]
 }
