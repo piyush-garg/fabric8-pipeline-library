@@ -81,7 +81,7 @@ def ocApplyResource(resource, namespace) {
 
 def shWithOutput(String command) {
     return sh(
-            script: command,
-            returnStdout: true
+        script: command,
+        returnStdout: true
     ).trim()
 }
