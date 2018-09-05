@@ -1,7 +1,7 @@
 #!/usr/bin/groovy
 import io.fabric8.Events
 import io.fabric8.Utils
-def utils = new Utils()
+utils = new Utils()
 
 def call(Map args) {
     stage("Build application") {
