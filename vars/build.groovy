@@ -50,4 +50,5 @@ def ocApplyResource(resource, namespace) {
     def resourceFile = ".openshiftio/.tmp-${resource.kind.toLowerCase()}.yaml"
     writeYaml file: resourceFile, data: resource
     sh "oc apply -n ${namespace} -f $resourceFile"
+    sh "rm ${resourceFile}"
 }
