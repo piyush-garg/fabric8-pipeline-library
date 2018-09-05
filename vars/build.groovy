@@ -62,7 +62,8 @@ def ocApplyResource(resource, namespace) {
     println "resource in json: \n $json"
 
     // writeYaml file: resourceFile, data: resource
-    writeJSON file: jsonFile, json: resource
+    // writeJSON file: jsonFile, json: resource
+    new File(jsonFile).append(json)
 
     sh """
       pwd
