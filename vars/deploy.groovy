@@ -74,7 +74,7 @@ def displayRouteURL(namespace, route) {
 }
 
 def ocApplyResource(resource, namespace) {
-    def resourceFile = "/tmp/${namespace}-${env.BUILD_NUMBER}-${resource.kind}.yaml"
+    def resourceFile = ".openshiftio/.tmp-${resource.kind.toLowerCase()}.yaml"
     writeYaml file: resourceFile, data: resource
     sh "oc apply -f ${resourceFile} -n ${namespace}"
 }
