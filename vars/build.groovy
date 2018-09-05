@@ -16,6 +16,8 @@ def call(Map args) {
           }
         } catch (e) {
             status = "fail"
+            echo "build failed"
+            throw e
         }
 
         Events.emit(["build.end", "build.${status}"], [status: status, namespace: namespace])
