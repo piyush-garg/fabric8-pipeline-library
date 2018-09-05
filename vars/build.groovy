@@ -49,20 +49,24 @@ def shWithOutput(String command) {
 }
 
 def ocApplyResource(resource, namespace) {
-    def resourceFile = "/tmp/${namespace}-${env.BUILD_NUMBER}-${resource.kind}.yaml"
+    // def resourceFile = "/tmp/${namespace}-${env.BUILD_NUMBER}-${resource.kind}.yaml"
+    def jsonFile = "/tmp/${namespace}-${env.BUILD_NUMBER}-${resource.kind}.json"
 
     sh """
-      ls /tmp
-    """
-    println "resource: $resource"
-    writeYaml file: resourceFile, data: resource
-
-    sh """
-      ls /tmp
-      touch $resourceFile
-      ls /tmp
       pwd
+      ls /tmp
     """
+
+    println "resource: $resource"
     def json = new JsonBuilder(resource).toPrettyString()
-    sh "echo ${json} | oc apply -n ${namespace} -f - "
+    println "resource in json: \n $json"
+
+    // writeYaml file: resourceFile, data: resource
+    writeJSON file: jsonFile, json: resource
+
+    sh """
+      pwd
+      ls /tmp
+    """
+    sh "oc apply -n ${namespace} -f $jsonFile "
 }
