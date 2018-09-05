@@ -51,7 +51,6 @@ def ocApplyResource(resource, namespace) {
     sh """
       pwd
       ls -al
-      sleep infinity
     """
 
     writeYaml file: resourceFile, data: resource
@@ -59,7 +58,7 @@ def ocApplyResource(resource, namespace) {
     sh """
       pwd
       ls -al
-      ls .openshiftio
+      ls -al .openshiftio/
     """
     sh "oc apply -n ${namespace} -f $resourceFile"
 }
