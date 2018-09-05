@@ -8,12 +8,9 @@ def call(body) {
         // TODO: move registration to a different file; perhaps
         // plugins.register()?
         // new analytics().register()
-
         Events.emit("pipeline.start", "testarg")
-        spawn(image: "oc") {
-            checkout scm
-            body()
-        }
+        checkout scm
+        spawn(image: "oc") { body() }
         Events.emit("pipeline.end", "testarg")
     }
 }
