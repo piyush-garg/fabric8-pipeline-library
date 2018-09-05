@@ -11,11 +11,9 @@ def call(Map args) {
         def namespace = args.namespace ?: new Utils().getUsersNamespace()
 
         try {
-          spawn(image: "oc") {
-              createImageStream(args.app.ImageStream, namespace)
-              buildProject(args.app.BuildConfig, namespace)
-              status = "pass"
-          }
+            createImageStream(args.app.ImageStream, namespace)
+            buildProject(args.app.BuildConfig, namespace)
+            status = "pass"
         } catch (e) {
             status = "fail"
             echo "build failed"
@@ -53,7 +51,7 @@ def ocApplyResource(resource, namespace) {
     sh """
       pwd
       ls -al
-      ls .openshiftio
+      sleep infinity
     """
 
     writeYaml file: resourceFile, data: resource
