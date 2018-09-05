@@ -26,6 +26,7 @@ def specForImage(image, version){
             shell: '/bin/bash'
       ],
     ],
+  ]
 
   // TODO: validate image in specs
   return specs[image][version]
