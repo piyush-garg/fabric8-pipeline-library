@@ -9,7 +9,6 @@ def call(body) {
         // plugins.register()?
         new analytics().register()
         Events.emit("pipeline.start", "testarg")
-        checkout scm
         body()
         Events.emit("pipeline.end", "testarg")
     }
