@@ -6,12 +6,16 @@ def call(Map args = [:], body = null) {
     def label = buildId(args.name)
 
     println " ... label: $label: $args"
+    println " ... label: $label: $args: ${jnlpTemplate()}"
     podTemplate(
       label: label,
       cloud: flow.getCloudConfig(),
       serviceAccount: 'jenkins',
       inheritFrom: 'base',
-      containers: [slaveTemplate(args.name, args.image, args.shell), jnlpTemplate() ],
+      containers: [
+        slaveTemplate(args.name, args.image, args.shell),
+        jnlpTemplate()
+      ],
       volumes: volumes(),
     ) {
       node (label) {
@@ -46,6 +50,7 @@ def slaveTemplate(name, image, shell) {
 
 def jnlpTemplate() {
     def jnlpImage = 'fabric8/jenkins-slave-base-centos7:vb0268ae'
+
     return containerTemplate(
         name: 'jnlp',
         image: "${jnlpImage}",
