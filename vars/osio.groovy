@@ -8,8 +8,10 @@ def call(body) {
         // TODO: move registration to a different file; perhaps
         Plugins.register()
         Events.emit("pipeline.start", "testarg")
-        checkout scm
-        spawn(image: "oc") { body() }
+        spawn(image: "oc") {
+          checkout scm
+          body()
+        }
         Events.emit("pipeline.end", "testarg")
     }
 }
