@@ -52,6 +52,7 @@ def ocApplyResource(resource, namespace) {
     def resourceFile = ".openshiftio/.tmp-${resource.kind.toLowerCase()}.yaml"
     sh """
       pwd
+      ls -al
       ls .openshiftio
     """
 
@@ -59,6 +60,7 @@ def ocApplyResource(resource, namespace) {
 
     sh """
       pwd
+      ls -al
       ls .openshiftio
     """
     sh "oc apply -n ${namespace} -f $resourceFile"
