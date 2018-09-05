@@ -21,11 +21,12 @@ def specForImage(image, version){
     ],
     "oc": [
       "latest": [
-            image: "piyushgarg/test${image}:${version}",
+            image: "piyushgarg/testnode:${version}",
             shell: '/bin/bash'
       ],
     ],
   ]
   // TODO: validate image in specs
+  println "Getting spec for $image : $version"
   return specs[image][version]
 }
