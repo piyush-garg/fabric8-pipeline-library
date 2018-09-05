@@ -3,7 +3,7 @@
 def call(Map args = [:], body = null){
     def spec = specForImage(args.image, args.version?: 'latest')
     println "Got spec for $args: $spec"
-    pod(image: spec.image, name: args.image, shell: spec.shell) {
+    pod(name: args.image, image: spec.image, shell: spec.shell) {
       body()
     }
 }
