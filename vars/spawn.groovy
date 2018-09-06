@@ -7,6 +7,11 @@ def call(Map args = [:], body = null){
       if (checkoutScm) {
         checkout scm
       }
+
+      if (args.command != null) {
+          sh args.command
+          return
+      }
       body()
     }
 }
