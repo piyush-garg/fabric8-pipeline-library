@@ -29,6 +29,10 @@ def specForImage(image, version){
             image: "piyushgarg/testnode:latest",
             shell: '/bin/bash'
       ],
+      "latest1": [
+              image: "openshift/jenkins-slave-nodejs-centos7",
+              shell: '/bin/bash'
+      ],
     ],
   ]
 
