@@ -1,15 +1,14 @@
 #!/usr/bin/groovy
 
 def call(Map args = [:], body = null){
-    def spec = specForImage(args.image, args.version?: 'latest')
-    def checkoutScm = args.checkout_scm ?: true
-
     if (args.command == null && body == null) {
         error "Please specify either command or body; aborting ..."
         currentBuild.result = 'ABORTED'
         return
     }
 
+    def spec = specForImage(args.image, args.version?: 'latest')
+    def checkoutScm = args.checkout_scm ?: true
     pod(name: args.image, image: spec.image, shell: spec.shell) {
       if (checkoutScm) {
         checkout scm
@@ -22,7 +21,6 @@ def call(Map args = [:], body = null){
       if (body != null) {
           body()
       }
-
     }
 }
 
