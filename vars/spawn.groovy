@@ -3,15 +3,16 @@
 def call(Map args = [:], body = null){
     def spec = specForImage(args.image, args.version?: 'latest')
     def checkoutScm = args.checkout_scm ?: true
+
+    if (args.command == null && body == null) {
+        error "Please specify either command or body; aborting ..."
+        currentBuild.result = 'ABORTED'
+        return
+    }
+
     pod(name: args.image, image: spec.image, shell: spec.shell) {
       if (checkoutScm) {
         checkout scm
-      }
-
-      if (args.command == null && body == null) {
-          error "Please specify either command or body; aborting ..."
-          currentBuild.result = 'ABORTED'
-          return 
       }
 
       if (args.command != null) {
