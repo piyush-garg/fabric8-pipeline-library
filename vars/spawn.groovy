@@ -8,11 +8,20 @@ def call(Map args = [:], body = null){
         checkout scm
       }
 
+      if (args.command == null && body == null) {
+          error "Please specify either command or body; aborting ..."
+          currentBuild.result = 'ABORTED'
+          return 
+      }
+
       if (args.command != null) {
           sh args.command
-          return
       }
-      body()
+
+      if (body != null) {
+          body()
+      }
+
     }
 }
 
