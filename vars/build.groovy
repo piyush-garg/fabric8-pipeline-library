@@ -5,7 +5,7 @@ import io.openshift.Utils
 def call(Map args) {
     stage("Build application") {
         Events.emit("build.start")
-        def namespace = args.namespace ?: Utils.getUsersNamespace()
+        def namespace = args.namespace ?: Utils.usersNamespace()
         def image = config.runtime() ?: 'oc'
 
         def status = ""

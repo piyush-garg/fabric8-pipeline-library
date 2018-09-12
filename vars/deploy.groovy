@@ -2,7 +2,7 @@
 import io.openshift.Utils;
 
 def call(Map args = [:]) {
-    def userNamespace = Utils.getUsersNamespace();
+    def userNamespace = Utils.usersNamespace();
     def deployNamespace = userNamespace + "-" + args.env;
 
     if (args.approval == 'manual') {
