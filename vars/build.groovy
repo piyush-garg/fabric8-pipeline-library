@@ -1,5 +1,5 @@
 #!/usr/bin/groovy
-import io.fabric8.Events
+import io.openshift.Events
 import io.openshift.Utils
 
 def call(Map args) {
