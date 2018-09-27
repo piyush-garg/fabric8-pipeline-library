@@ -46,6 +46,7 @@ def call(body) {
         flow.setupK8sConfig()
 
         try {
+            sh "oc version"
             sh "oc get projects ${openShiftProject} | grep Active"
         } catch (err) {
             echo "${err}"
