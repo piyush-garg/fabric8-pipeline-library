@@ -47,10 +47,10 @@ def call(body) {
 
         try {
             sh "oc version"
-            sh "oc get projects ${openShiftProject} | grep Active"
+            sh "oc get namespaces ${openShiftProject} | grep Active"
         } catch (err) {
             echo "${err}"
-            sh "oc new-project ${openShiftProject}"
+            sh "oc create namespace ${openShiftProject}"
         }
 
         // TODO share this code with buildSnapshotFabric8UI.groovy!
