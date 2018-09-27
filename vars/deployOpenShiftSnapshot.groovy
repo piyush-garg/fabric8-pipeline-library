@@ -125,6 +125,6 @@ def call(body) {
                 return false
             }
         }
-        return sh(script: "oc get route ${deploymentName} -o jsonpath=\"{.spec.host}\" -n ${openShiftProject}", returnStdout: true).toString().trim()
+        return sh(script: "oc get ingress ${deploymentName} -o jsonpath=\"{.spec.host}\" -n ${openShiftProject}", returnStdout: true).toString().trim()
     }
 }
