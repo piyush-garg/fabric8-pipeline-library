@@ -46,6 +46,7 @@ def call(body) {
         flow.setupK8sConfig()
 
         try {
+            sh "service docker start"
             sh "oc cluster up"
             sh "oc get project ${openShiftProject} | grep Active"
         } catch (err) {
