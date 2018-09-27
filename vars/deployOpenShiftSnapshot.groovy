@@ -46,11 +46,11 @@ def call(body) {
         flow.setupK8sConfig()
 
         try {
-            sh "oc version"
-            sh "oc get namespaces ${openShiftProject} | grep Active"
+            sh "oc cluster up"
+            sh "oc get project ${openShiftProject} | grep Active"
         } catch (err) {
             echo "${err}"
-            sh "oc create namespace ${openShiftProject}"
+            sh "oc new-project ${openShiftProject}"
         }
 
         // TODO share this code with buildSnapshotFabric8UI.groovy!
@@ -125,6 +125,6 @@ def call(body) {
                 return false
             }
         }
-        return sh(script: "oc get ingress ${deploymentName} -o jsonpath=\"{.spec.host}\" -n ${openShiftProject}", returnStdout: true).toString().trim()
+        return sh(script: "oc get route ${deploymentName} -o jsonpath=\"{.spec.host}\" -n ${openShiftProject}", returnStdout: true).toString().trim()
     }
 }
